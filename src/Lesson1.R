@@ -76,11 +76,49 @@ my_list[1:2]
 # acceder al objeto guardado en la lista
 my_list[[2]] # esto es un vector
 my_list[[2]][3]
-
+my_named_list <- list(a=1:4, b=letters[1:5], cosa="holi")
+my_named_list
+# estas tres cosas son equivalentes
+my_named_list$cosa
+my_named_list[[3]]
+my_named_list[3]
 
 # matrices
-m <- matrix(1:12, nrow=3, ncol=4)
+m <- matrix(1:12, nrow=3, ncol=4, byrow=T) #False: en vertical
 m
 m[3,3]
 m[1:2, ]
 m[, 4]
+
+
+# dataframes
+my_1st_dataframe <- data.frame(a = letters[1:3], b = 2:4, c = c(T, F, T))
+my_1st_dataframe$a
+
+# seleccionar columnas
+my_1st_dataframe$b
+my_1st_dataframe[, c("a", "c")]
+names(my_1st_dataframe)
+my_1st_dataframe[, 1:3]
+my_1st_dataframe[, c(2, 3)]
+
+
+# ....by value 
+my_1st_dataframe$b
+my_1st_dataframe$b < 4
+my_1st_dataframe[my_1st_dataframe$b < 4,] # IMPORTANTE!!!!
+
+
+# R BASICS II: apply functions
+data("mtcars")
+df <- mtcars
+names(df)
+#  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"
+
+df[df$hp > 100,]
+df[df$drat > 2.5 & df$drat < 3.5,]
+df[df$drat > 2.5 |df$drat == 4,] # or = | (alt1)
+
+
+# sel.filas                   sel.col
+df[df$drat > 4 | df$carb == 4, c("mpg", "cyl", "hp")]
